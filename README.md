@@ -7,8 +7,11 @@ Projekt konkursowy dla **KajoData**, będący kompleksową analizą danych model
 
 ---
 <img width="1785" height="995" alt="KajoData_dashboard1" src="https://github.com/user-attachments/assets/3b33cbb2-30bc-47e6-95d8-75b104371d93" />
+<br><br>
 <img width="1794" height="999" alt="KajoData_dashboard2" src="https://github.com/user-attachments/assets/00617efd-d1ff-4353-b8dc-fe186b8c723d" />
+<br><br>
 <img width="1775" height="984" alt="KajoData_dashboard3" src="https://github.com/user-attachments/assets/7594be34-7756-4e39-9ee1-7dbece25418f" />
+<br><br>
 
 ---
 
