@@ -15,7 +15,7 @@ Projekt konkursowy dla **KajoData**, będący kompleksową analizą danych model
 
 ---
 
-##  Proces ETL & Przygotowanie Danych
+##  Proces ETL & Przygotowanie danych
 
 ### Excel / Power Query
 *   **Cleaning:** Standaryzacja typów danych, usuwanie zbędnych spacji (trimming) i czyszczenie rekordów.
@@ -32,7 +32,7 @@ Projekt konkursowy dla **KajoData**, będący kompleksową analizą danych model
 
 ---
 
-##  Kluczowe Miary (KPI) i Logika Biznesowa
+##  Kluczowe Miary (KPI) i Logika biznesowa
 
 W projekcie postawiłam na **dokładność statusową (Status-based)**, a nie transakcyjną, co jest kluczowe w modelu subskrypcyjnym:
 
@@ -44,7 +44,7 @@ W projekcie postawiłam na **dokładność statusową (Status-based)**, a nie tr
 
 ---
 
-##  Segmentacja Klientów
+##  Segmentacja klientów
 Użytkownicy zostali podzieleni na trzy grupy na podstawie liczby transakcji:
 1.  **VIP (> 5 transakcji):** Najmniejsza grupa (124 osoby), ale generująca najwyższe LTV (4 593 zł).
 2.  **Loyal (2-5 transakcji):** Stabilna baza klientów.
@@ -53,7 +53,7 @@ Użytkownicy zostali podzieleni na trzy grupy na podstawie liczby transakcji:
 
 ---
 
-##  Rekomendacje Strategiczne
+##  Rekomendacje strategiczne
 
 1.  **Kampania Win-back (Miesiąc 11):** Automatyzacja komunikacji przed krytycznym 13. miesiącem życia klienta, w którym dane wykazują największy "Churn spike".
 2.  **Program VIP:** Wprowadzenie dedykowanego opiekuna dla najbardziej dochodowego segmentu.
