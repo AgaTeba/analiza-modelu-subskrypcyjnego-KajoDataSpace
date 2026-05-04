@@ -18,8 +18,8 @@ Projekt konkursowy dla **KajoData**, będący kompleksową analizą danych model
 ##  Proces ETL & Przygotowanie danych
 
 ### Excel / Power Query
-*   **Cleaning:** Standaryzacja typów danych, usuwanie zbędnych spacji (trimming) i czyszczenie rekordów.
-*   **Feature Engineering (Tabela Sale):** Dodanie kolumn indeksu oraz wyodrębnienie miesiąca i roku transakcji.
+*   **Czyszczenie:** Standaryzacja typów danych, usuwanie zbędnych znaków.
+*   **Przekształcanie:** Dodanie kolumn indeksu oraz wyodrębnienie miesiąca i roku transakcji, zmiana nazw kolumn i tabel na j.angielski.
 *   **Agregacja:** Utworzenie tabeli `Order_count` zliczającej zamówienia dla każdego z 1 057 unikalnych klientów.
 
 ### Power BI & Modelowanie
@@ -27,20 +27,21 @@ Projekt konkursowy dla **KajoData**, będący kompleksową analizą danych model
 *   **Analiza Kohortowa:** 
     *   Utworzenie tabeli `First_purchase` określającej datę pierwszego zamówienia dla każdego klienta.
     *   Wyliczenie `entry_price` (kwoty pierwszego zakupu) w celu identyfikacji pakietu wejściowego.
-*   **Data Mining (Kopalnia informacji):** Przeprowadziłam analizę korelacji między datami a średnią ceną zakupu. Dzięki zestawieniu tych danych z historią postów w mediach społecznościowych KajoData, zidentyfikowałam okresy promocyjne (Black Week, New Year's Special, March Offer).
+*   **Model danych:** Utworzenie modelu danych w schemacie gwiazdy.
+*   **Data Mining:** Przeprowadziłam analizę korelacji między datami a średnią ceną zakupu. Dzięki zestawieniu tych danych z historią postów w mediach społecznościowych KajoData, zidentyfikowałam powtarzające się okresy promocyjne (Black Week, New Year's Special, March Offer, Last minute sale).
 *   **Klasyfikacja:** Utworzenie zaawansowanej kolumny niestandardowej `promo_name` w Power Query, przypisującej transakcje do konkretnych kampanii marketingowych.
 
 ---
 
-##  Kluczowe Miary (KPI) i Logika biznesowa
+##  Kluczowe Miary (KPI) i logika biznesowa
 
-W projekcie postawiłam na **dokładność statusową (Status-based)**, a nie transakcyjną, co jest kluczowe w modelu subskrypcyjnym:
+W projekcie postawiłam na **dokładność statusową**, a nie transakcyjną, co jest kluczowe w modelu subskrypcyjnym:
 
-*   **Active Customers:** Miara uwzględniająca datę ważności dostępu (Monthly: 31 dni, Semi-annual: 183 dni, Annual: 366 dni).
-*   **Current MRR (Monthly Recurring Revenue):** Realna wartość przychodu powtarzalnego. Miara "rozbija" płatności roczne na 12 równych części, co eliminuje fałszywe skoki przychodów na wykresach i pokazuje realne tempo wzrostu.
-*   **ARPU (Average Revenue Per User):** Wyliczane jako $Current MRR / Active Customers$. Wynik **163 zł** sugeruje pozycjonowanie produktu w segmencie premium.
+*   **Active Customers:** Miara uwzględniająca datę ważności dostępu (biorąc pod uwagę datę transakcji oraz obliczonej na podstawie rodzaju subskrypcji i dołaczonego do modelu Kalendarza (Calendar)).
+*   **Current MRR (Monthly Recurring Revenue):** Realna wartość przychodu powtarzalnego. Miara "rozbija" płatności roczne na 12 równych części, co eliminuje fałszywe skoki przychodów na wykresach i pokazuje realne tempo wzrostu. (możliwość zagłębiania się w poziom czasowy dzięki filtrowaniu po wybranej dacie)
+*   **ARPU (Average Revenue Per User):** Wyliczane jako Current MRR / Active Customers. Wynik **163 zł** sugeruje pozycjonowanie produktu w segmencie premium.
 *   **Churn Rate (14,77%):** Wyliczony z precyzją co do ID klienta przy użyciu funkcji `EXCEPT`, porównującej aktywność użytkowników w miesiącach następujących po sobie.
-*   **LTV (Lifetime Value):** Na poziomie **1 107 zł**, co wskazuje, że średni cykl życia klienta wynosi ok. 7 miesięcy.
+*   **LTV (Lifetime Value):** Na poziomie **1 107 zł**, co wskazuje, że średni cykl życia klienta wynosi ok. 7 miesięcy. Przy możliwości porównania z danymi o kosztach, można w przyszłości sprawdzać ile możemy wydać na pozyskanie jednego klienta, wiedząc ile średnio przynosi nam przychodu. 
 
 ---
 
@@ -55,10 +56,11 @@ Użytkownicy zostali podzieleni na trzy grupy na podstawie liczby transakcji:
 
 ##  Rekomendacje strategiczne
 
-1.  **Kampania Win-back (Miesiąc 11):** Automatyzacja komunikacji przed krytycznym 13. miesiącem życia klienta, w którym dane wykazują największy "Churn spike".
-2.  **Program VIP:** Wprowadzenie dedykowanego opiekuna dla najbardziej dochodowego segmentu.
-3.  **Konwersja One-Timers:** Program lojalnościowy po pierwszym zakupie, mający na celu przesunięcie klientów "weryfikujących produkt" do grupy Loyal.
-4.  **Uproszczenie odnowień rocznych:** Gwałtowny spadek na krzywej przetrwania (Survival Curve) po roku sugeruje potrzebę uproszczenia procesu płatności lub dodania zachęt finansowych przy przedłużeniu.
+1.  **Kampania Win-back (Miesiąc 11):** Intensywna promocja w 11. miesiącu subskrypcji, mająca na celu przekonanie klientów do pozostania w usłudze.
+2.  **Program retencyjny VIP:** Skupienie się na segmencie VIP (wysoka wartość $LTV$) poprzez dedykowane, spersonalizowane oferty.
+3.  **Konwersja klientów jednorazowych (One-Timers):** Program lojalnościowy – przekształcenie licznej grupy klientów „jednorazowych” w użytkowników „lojalnych” za pomocą zachęt pozakupowych.
+4.  **Uproszczenie odnowień rocznych:** Uproszczenie procesu odnawiania subskrypcji rocznych, aby wyeliminować gwałtowny spadek na krzywej utrzymania klienta (Survival Curve).
+5.  **Optymalizacja strategii promocyjnej:** Promocje z wysokimi rabatami przyciągają klientów jednorazowych, którzy szybko rezygnują z usług (churn). Należy położyć nacisk na wysokiej jakości onboarding zamiast agresywnej polityki cenowej, aby budować zdrowsze i bardziej stabilne kohorty długoterminowe.
 
 ---
 
