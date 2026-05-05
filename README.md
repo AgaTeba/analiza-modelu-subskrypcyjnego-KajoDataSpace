@@ -15,6 +15,17 @@ Projekt konkursowy dla **KajoData**, będący kompleksową analizą danych model
 
 ---
 
+##  Cel analizy & Pytania biznesowe
+
+### Głównym celem analizy było odkrycie mechanizmów retencji i zrozumienie, jak zachowania klientów przekładają się na stabilność przychodów (MRR).
+
+### Pytania biznesowe
+*   **Jak promocje i podwyżki cen wpływają na retencję?**
+*   **Czy klienci promocyjni zostają z nami na dłużej, czy odchodzą szybciej?**
+*   **Czy warto robić częstsze promocje, czy może lepiej postawić na podwyżki dla nowych użytkowników?**
+
+---
+
 ##  Proces ETL & Przygotowanie danych
 
 ### Excel / Power Query
